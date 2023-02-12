@@ -6,6 +6,6 @@ export const retrieveRealtors = createRealtorThunk<
         realtors: Readonly<Array<Realtor>>;
     }>,
     void
->('/realtors', async (_, { extra: { realtorListQuery } }) => {
+>('realtors/retrieveRealtors', async (_, { extra: { realtorListQuery } }) => {
     return realtorListQuery();
 });

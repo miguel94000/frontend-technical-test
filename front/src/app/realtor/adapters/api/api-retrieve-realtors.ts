@@ -11,7 +11,7 @@ export const apiRetrieveRealtor =
     async (): Promise<RealtorListResult> => {
         return new Promise((resolve, reject) => {
             requestHttp
-                .get('realtors')
+                .get('/realtors')
                 .then((response: Response) => {
                     const error = GetError(response);
                     if (error) {
@@ -23,9 +23,8 @@ export const apiRetrieveRealtor =
                 })
                 .then((body) => {
                     if (body) {
-                        const realtorsList = body.json();
                         resolve(
-                            createRealtorListResult({ realtors: realtorsList })
+                            createRealtorListResult({ realtors: body })
                         );
                     }
                 })

@@ -2,13 +2,13 @@ import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { Realtor } from '../../app/entities';
 import { retrieveRealtors } from 'src/app/realtor/core/use-cases/retrieve-realtors';
 
-export { entityRealtorAdapter, initialState, realtorSlice}
+export { realtorAdapter, initialState, realtorSlice}
 
-const entityRealtorAdapter = createEntityAdapter<Realtor>({
+const realtorAdapter = createEntityAdapter<Realtor>({
     selectId: (realtor: Realtor) => realtor.id,
 });
 
-const initialState = entityRealtorAdapter.getInitialState();
+const initialState = realtorAdapter.getInitialState();
 
 const realtorSlice = createSlice({
     name: 'realtors',
@@ -16,7 +16,9 @@ const realtorSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(retrieveRealtors.fulfilled, (state, action) => {
-            entityRealtorAdapter.setAll(state, action.payload.realtors);
+            realtorAdapter.setAll(state, action.payload.realtors);
+            console.log("realtorAdapter", state.entities)
         });
+        
     },
 });

@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import CssBaseline from '@mui/material/CssBaseline';
+import ThemeProvider from '@mui/styles/ThemeProvider';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch } from 'src/redux/store';
+import { getCurrentTheme } from 'src/theme';
+import { storage } from 'src/utils/storage/local-storage';
+import { Index } from '.';
+import { retrieveRealtors } from './realtor/core/use-cases/retrieve-realtors';
+
+const theme = getCurrentTheme();
+
+storage.setBasePath('http://localhost:8080')
 
 export function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    // state
+    const dispatch = useAppDispatch();
+    const [loading, setLoading] = useState<boolean>(true)
 
-export default App;
+    // comportements
+    useEffect(() => {
+      if(loading){
+        dispatch(retrieveRealtors())
+        .then(()=> setLoading(false));
+      }
+    }, [dispatch, loading]);
+
+    // Rendu
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Index />
+        </ThemeProvider>
+    );
+}
