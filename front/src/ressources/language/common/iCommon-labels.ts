@@ -1,6 +1,11 @@
 export interface iCommonLabels {
     realtorSwitchBtn:{
-        title: 'Agences',
-        emptySelected: 'Aucunes agences sélèctionnés',
+        title: string;
     },
+    display:{
+        notDisplayElement: string;
+    },
+    errors:{
+        realtorNotFound: string;
+    }
 }

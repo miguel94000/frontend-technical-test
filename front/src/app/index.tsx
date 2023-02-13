@@ -1,9 +1,10 @@
 import React from 'react';
-import { ProfilMenu } from './shared/hight-menu/hight-menu';
-
+import { SideMessageList } from './shared/side-message-list/side-message-list';
+import { TopMenu } from './shared/top-menu/top-menu'
 
 export function Index() {
     return <div style={{ display: 'flex' }}>
-        <ProfilMenu />
+        <TopMenu />
+        {/* <SideMessageList /> */}
     </div>;
 }

@@ -17,7 +17,6 @@ const realtorSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(retrieveRealtors.fulfilled, (state, action) => {
             realtorAdapter.setAll(state, action.payload.realtors);
-            console.log("realtorAdapter", state.entities)
         });
         
     },
