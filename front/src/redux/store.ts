@@ -19,6 +19,7 @@ import { iMessageListQuery } from 'src/app/message/core/ports/retrieve-message-p
  *      API
  */
 import { apiRetrieveRealtor } from 'src/app/realtor/adapters/api/api-retrieve-realtors';
+import { apiRetrieveMessageByRealtorId } from 'src/app/message/adapters/api/api-retrieve-messages-by-realtor-id';
 
 export type { RootState, RealtorExtraArgs, MessageExtraArgs, FTTExtraArgs, AppDispatch };
 export { createStore, store, useAppDispatch };
@@ -62,6 +63,7 @@ const requestHttp = createRequestHttp({ storage });
 const store = createStore({
     extraArgument: {
         realtorListQuery: apiRetrieveRealtor({ requestHttp }),
+        messageListQuery: apiRetrieveMessageByRealtorId({ requestHttp }),
     }
 })
 

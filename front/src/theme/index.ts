@@ -221,6 +221,7 @@ const getCurrentTheme = (): DefaultTheme => {
                             flexShrink: 0,
                             '& .MuiDrawer-paper': {
                                 width: '240px',
+                                paddingTop: 64,
                                 boxSizing: 'border-box',
                                 background: colors.darkGrey,
                             },

@@ -16,5 +16,5 @@ const createMessageListResult = ({
 type MessageListResult = ReturnType<typeof createMessageListResult>;
 
 interface iMessageListQuery {
-    (realtor_id: string): Promise<MessageListResult>;
+    (realtor_id: string, pageNumber: number, pageSize: number ): Promise<MessageListResult>;
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import { SideMessageList } from './shared/side-message-list/side-message-list';
+import { LayoutMessage } from './shared/layout-message/layout-message';
 import { TopMenu } from './shared/top-menu/top-menu'
 
 export function Index() {
-    return <div style={{ display: 'flex' }}>
+    return <div >
         <TopMenu />
-        {/* <SideMessageList /> */}
+        <LayoutMessage />
     </div>;
 }

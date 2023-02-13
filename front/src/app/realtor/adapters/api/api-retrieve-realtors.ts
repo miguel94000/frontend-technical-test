@@ -12,21 +12,9 @@ export const apiRetrieveRealtor =
         return new Promise((resolve, reject) => {
             requestHttp
                 .get('/realtors')
-                .then((response: Response) => {
-                    const error = GetError(response);
-                    if (error) {
-                        reject(error);
-                        return;
-                    } else {
-                        return response.json();
-                    }
-                })
-                .then((body) => {
-                    if (body) {
-                        resolve(
-                            createRealtorListResult({ realtors: body })
-                        );
-                    }
+                .then((response: Response) => response.json())
+                .then((realtors) => {
+                    resolve(createRealtorListResult({ realtors: realtors }));
                 })
                 .catch((error) => {
                     reject(GetError(error));
