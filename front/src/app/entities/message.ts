@@ -1,10 +1,17 @@
 import { Contact } from './contact';
+
+export enum MessageType {
+    EMAIL="email",
+    PHONE="phone",
+    SMS="sms"
+}
 export interface Message {
-    id: number;
-    date: string;
     subject: string;
     body: string;
-    type: string;
     read: boolean;
+    type: MessageType;
     contact: Contact;
+    date: string;
+    id: number;
+    realtorId: string;
 }

@@ -6,21 +6,17 @@ import { SwitcherRealtor } from './components/switcher-realtor';
 
 export function TopMenu() {
     // State
-    const drawerWidth = 240;
     const [realtorIdSelected, setRealtorIdSelected] = useState<string>('');
 
     // Comportement
     const handleChangeSetRealtorIdSelected = (newId: string) => {
         setRealtorIdSelected(newId);
     };
+
     // Rendu
     return (
         <AppBar
-            position="fixed"
-            sx={{
-                ml: { sm: `${drawerWidth}px` },
-            }}
-        >
+        position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Toolbar>
                 <UnreadMessageCounter realtorIdSelected={realtorIdSelected} />
                 <SwitcherRealtor

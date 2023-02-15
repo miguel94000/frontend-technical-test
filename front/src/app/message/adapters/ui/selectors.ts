@@ -16,7 +16,13 @@ const selectors = {
         return createSelector(
             (state: RootState) => messageSelectors.selectAll(state),
             (messages: Message[]): Message[] => messages
-            
+
+        );
+    },
+    selectMessageById: (messageId: number) => {
+        return createSelector(
+            (state: RootState) => messageSelectors.selectById(state, messageId),
+            (message: Message | undefined): Message => message ? message : {} as Message
         );
     },
 };

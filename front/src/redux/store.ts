@@ -20,6 +20,10 @@ import { iMessageListQuery } from 'src/app/message/core/ports/retrieve-message-p
  */
 import { apiRetrieveRealtor } from 'src/app/realtor/adapters/api/api-retrieve-realtors';
 import { apiRetrieveMessageByRealtorId } from 'src/app/message/adapters/api/api-retrieve-messages-by-realtor-id';
+import { iMessageUpdateByIdQuery } from 'src/app/message/core/ports/update-message-read-by-id-port';
+import { apiUpdateMessageReadById } from 'src/app/message/adapters/api/api-update-message-read-by-id';
+import { iMessageUpdateListByRealtorIdQuery } from 'src/app/message/core/ports/update-message-list-by-realtor-id-port';
+import { apiUpdateMessageListByRealtorId } from 'src/app/message/adapters/api/api-update-message-list-by-realtor-id';
 
 export type { RootState, RealtorExtraArgs, MessageExtraArgs, FTTExtraArgs, AppDispatch };
 export { createStore, store, useAppDispatch };
@@ -35,6 +39,8 @@ type RealtorExtraArgs = {
 };
 type MessageExtraArgs = {
     messageListQuery: iMessageListQuery;
+    messageUpdateByIdQuery: iMessageUpdateByIdQuery;
+    messageUpdateListByRealtorIdQuery: iMessageUpdateListByRealtorIdQuery;
 };
 type FTTExtraArgs = RealtorExtraArgs & MessageExtraArgs;
 
@@ -64,6 +70,8 @@ const store = createStore({
     extraArgument: {
         realtorListQuery: apiRetrieveRealtor({ requestHttp }),
         messageListQuery: apiRetrieveMessageByRealtorId({ requestHttp }),
+        messageUpdateByIdQuery: apiUpdateMessageReadById({ requestHttp }),
+        messageUpdateListByRealtorIdQuery: apiUpdateMessageListByRealtorId({ requestHttp }),
     }
 })
 

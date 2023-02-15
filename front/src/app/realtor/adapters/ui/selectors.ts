@@ -22,14 +22,8 @@ const selectors = {
     },
     selectRealtorByIdViewModel: (realtorId: string) => {
         return createSelector(
-            (state: RootState) => {
-                const realtor = realtorSelectors.selectById(state, realtorId);
-                if (!realtor) {
-                    return {} as Realtor
-                }
-                return realtor;
-            },
-            (realtor: Realtor): Realtor => realtor
+            (state: RootState) => realtorSelectors.selectById(state, realtorId),
+            (realtor: Realtor | undefined): Realtor => realtor ? realtor : {} as Realtor
         )
     }
 };

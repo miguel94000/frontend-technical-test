@@ -32,7 +32,7 @@ export function SwitcherRealtor(props: SwitcherRealtorProps) {
         dispatch(retrieveMessagesByRealtorId({
             realtor_id: idSelected,
             pageNumber: 1,
-            pageSize: 20
+            pageSize: 10
         }))
     };
     // Rendu

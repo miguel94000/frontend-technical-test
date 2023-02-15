@@ -7,5 +7,9 @@ export interface iCommonLabels {
     },
     errors:{
         realtorNotFound: string;
+    },
+    contact:{
+        email: string;
+        phone: string;
     }
 }

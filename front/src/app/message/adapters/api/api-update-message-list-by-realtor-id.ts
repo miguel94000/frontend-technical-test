@@ -1,20 +1,21 @@
 import { RequestHttp } from 'src/utils/request-http/request-http';
 import {
-    MessageListResult,
-    createMessageListResult,
-    iMessageListQuery,
-} from 'src/app/message/core/ports/retrieve-message-port';
+    MessageUpdateListByRealtorIdResult,
+    createMessageUpdateListByRealtorIdResult,
+    iMessageUpdateListByRealtorIdQuery,
+} from 'src/app/message/core/ports/update-message-list-by-realtor-id-port';
 import { GetError } from 'src/utils/error-helper/error-helper';
-import { Message } from 'src/app/entities';
 
-export const apiRetrieveMessageByRealtorId =
-    ({ requestHttp }: { requestHttp: RequestHttp }): iMessageListQuery =>
+export const apiUpdateMessageListByRealtorId =
+    ({ requestHttp }: { requestHttp: RequestHttp }): iMessageUpdateListByRealtorIdQuery =>
     async (
         realtor_id: string,
         pageNumber: number,
         pageSize: number
-    ): Promise<MessageListResult> => {
+    ): Promise<MessageUpdateListByRealtorIdResult> => {
         return new Promise((resolve, reject) => {
+        console.log('chargement api');
+
             requestHttp
                 .get(
                     `/realtors/${realtor_id}/messages?page=${pageNumber}&page_size=${pageSize}&sort=date:desc`
@@ -24,7 +25,7 @@ export const apiRetrieveMessageByRealtorId =
                     messagesList.forEach((message: any) => {
                         message.realtorId = realtor_id;
                     });
-                    resolve(createMessageListResult({ messages: messagesList }));
+                    resolve(createMessageUpdateListByRealtorIdResult({ messages: messagesList }));
                 })
                 .catch((error) => {
                     reject(GetError(error));

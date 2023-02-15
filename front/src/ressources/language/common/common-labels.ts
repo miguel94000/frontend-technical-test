@@ -12,5 +12,9 @@ const commonLabels : iCommonLabels = {
     // Errors
     errors:{
         realtorNotFound: "Realtor avec id {0} introuvable !"
+    },
+    contact:{
+        email: "email",
+        phone: "phone"
     }
 };
