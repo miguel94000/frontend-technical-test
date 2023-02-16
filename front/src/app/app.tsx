@@ -9,7 +9,7 @@ import { Index } from '.';
 import { Message } from './entities';
 import { selectors } from './message/adapters/ui/selectors';
 import { retrieveRealtors } from './realtor/core/use-cases/retrieve-realtors';
-const theme = getCurrentTheme();
+const theme = getCurrentTheme;
 
 storage.setBasePath('http://localhost:8080'); // ULR par défaut
 

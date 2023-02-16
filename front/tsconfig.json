@@ -21,10 +21,11 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@frontend-tech-test": ["front/"]
+      "@frontend-tech-test": ["front/"],
+      "@assets": ["assets/"]
     }
   },
   "include": [
-    "src"
+    "src",
   ]
 }

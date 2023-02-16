@@ -4,7 +4,7 @@ export {commonLabels}
 
 const commonLabels : iCommonLabels = {
     realtorSwitchBtn:{
-        title: 'Agences',
+        title: 'Agence',
     },
     display:{
         notDisplayElement: "Aucun élément à afficher"

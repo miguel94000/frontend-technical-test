@@ -1,8 +1,9 @@
-import { Box, Toolbar } from '@mui/material';
+import { SvgIcon, Toolbar } from '@mui/material';
 import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import { UnreadMessageCounter } from './components/unread-message-counter';
 import { SwitcherRealtor } from './components/switcher-realtor';
+import { ReactComponent as Logo } from 'src/ressources/assets/logo-aviv.svg';
 
 export function TopMenu() {
     // State
@@ -15,8 +16,10 @@ export function TopMenu() {
 
     // Rendu
     return (
-        <AppBar
-        position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <AppBar>
+            <SvgIcon>
+                <Logo />
+            </SvgIcon>
             <Toolbar>
                 <UnreadMessageCounter realtorIdSelected={realtorIdSelected} />
                 <SwitcherRealtor

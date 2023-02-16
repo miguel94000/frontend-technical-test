@@ -6,7 +6,6 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { Message } from 'src/app/entities';
-import MailIcon from '@mui/icons-material/Mail';
 import { formatDateDynamicFR } from 'src/utils/date/format-date';
 import { SelectIcon } from 'src/utils/icon/select-icon';
 import { useDispatch } from 'react-redux';
@@ -27,17 +26,23 @@ export function MessageCard(props: MessageCardProps) {
         if (!message.read) {
             dispatch(updateMessageReadById({ message }));
         }
-    };
+    }
+
+    // const filters = message.read ? {
+    //      filter: 'grayscale(80%)'
+    // } : {}
+
+    const filters = {filter: 'grayscale(80%)' }
     // Rendu
     if (!message.id) {
         return (
                 <ListItem>
                     <ListItemText>Aucun Message</ListItemText>
                 </ListItem>
-        )
+        )                   
     }
     return (
-        <ListItem onClick={onClickSetNewMessageId} disablePadding>
+        <ListItem style={filters} onClick={onClickSetNewMessageId} disablePadding>
             <ListItemButton>
                 <ListItemIcon>{SelectIcon(message)}</ListItemIcon>
                 <ListItemText>

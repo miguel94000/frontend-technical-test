@@ -1,24 +1,30 @@
 import React from 'react';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import { useSelector } from 'react-redux';
 import { Realtor } from 'src/app/entities';
 import { selectors } from 'src/app/realtor/adapters/ui/selectors';
+import { ReactComponent as Logo } from 'src/ressources/assets/icon-counter.svg';
+import { unread_message_container } from 'src/theme';
 
 interface UnreadMessageCounterProps {
     realtorIdSelected: string;
 }
 export function UnreadMessageCounter(props: UnreadMessageCounterProps) {
     //state
+    const classes = unread_message_container();
     const { realtorIdSelected } = props;
     const realtor: Realtor = useSelector(
         selectors.selectRealtorByIdViewModel(realtorIdSelected)
     );
+
     // comportement
+
     // rendu
     return (
-        <>
-            <MailOutlineIcon sx={{ fontSize: 40 }} />
-            {realtor.unread_messages || 0}
-        </>
+        <div className={classes.root}>
+            <Logo/>
+            <span className={classes.unreadMessageNumber}>
+            {realtor.unread_messages || ""}
+                </span>
+        </div>
     );
 }
