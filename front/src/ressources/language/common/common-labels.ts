@@ -16,5 +16,8 @@ const commonLabels : iCommonLabels = {
     contact:{
         email: "email",
         phone: "phone"
+    },
+    messages:{
+        notFound: "Aucun messsage sélèctionné",
     }
 };

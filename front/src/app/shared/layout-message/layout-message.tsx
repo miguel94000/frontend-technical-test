@@ -1,3 +1,4 @@
+import { ClassNames } from '@emotion/react';
 import {
     Box,
     Divider,
@@ -14,11 +15,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Message } from 'src/app/entities';
 import { selectors } from 'src/app/message/adapters/ui/selectors';
 import { updateMessageListByRealtorId } from 'src/app/message/core/use-cases/update-message-list-by-realtor-id';
+import { drawerTest } from 'src/theme';
 import { SideMessageDetails } from './components/side-message-details/side-message-details';
 import { SideMessageList } from './components/side-message-list/side-message-list';
 
 export function LayoutMessage() {
     // State
+    const classes = drawerTest()
     const messages: Message[] = useSelector(
         selectors.selectMessageListViewModel()
     );
@@ -74,16 +77,7 @@ export function LayoutMessage() {
             <Drawer
                 variant="permanent"
                 onScrollCapture={loadMoreMessages}
-
-                sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: {
-                        width: drawerWidth,
-                        boxSizing: 'border-box',
-                        // '&::-webkit-scrollbar': { display: 'none' },
-                    },
-                }}
+                className={classes.root}
             >
                 <SideMessageList messages={messages} handleSetMessageId={handleSetMessageId} />
             </Drawer>

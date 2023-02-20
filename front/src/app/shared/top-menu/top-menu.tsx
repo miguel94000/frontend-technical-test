@@ -17,9 +17,7 @@ export function TopMenu() {
     // Rendu
     return (
         <AppBar>
-            <SvgIcon>
-                <Logo />
-            </SvgIcon>
+            <Logo />
             <Toolbar>
                 <UnreadMessageCounter realtorIdSelected={realtorIdSelected} />
                 <SwitcherRealtor

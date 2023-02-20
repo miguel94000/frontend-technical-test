@@ -11,7 +11,7 @@ import { Realtor } from 'src/app/entities';
 import { retrieveMessagesByRealtorId } from 'src/app/message/core/use-cases/retrieve-messages';
 import { selectors } from 'src/app/realtor/adapters/ui/selectors';
 import { commonLabels } from 'src/ressources/language/common/common-labels';
-import { unread_message_container } from 'src/theme';
+import { unread_message_container, select_realtors} from 'src/theme';
 
 interface SwitcherRealtorProps {
     handleChangeSetRealtorIdSelected: (realtorId: string) => void;
@@ -19,7 +19,10 @@ interface SwitcherRealtorProps {
 }
 export function SwitcherRealtor(props: SwitcherRealtorProps) {
     // State
-    const classes = unread_message_container();
+    const classes = {
+        unread_message_container: unread_message_container(),
+        select_realtors: select_realtors()
+    }
     const dispatch = useDispatch();
     const { handleChangeSetRealtorIdSelected, realtorIdSelected } = props;
     const realtors: Realtor[] = useSelector(
@@ -41,17 +44,17 @@ export function SwitcherRealtor(props: SwitcherRealtorProps) {
     };
     // Rendu
     return (
-        <FormControl variant="outlined" className={classes.unreadMessageForm}>
+        <FormControl variant="outlined" className={classes.unread_message_container.unreadMessageForm}>
             <Select
                 labelId="demo-simple-select-filled-label"
                 id="demo-simple-select-filled"
                 value={realtorIdSelected}
                 onChange={handleChange}
-                
-            >
+                className={classes.select_realtors.root}
+            >   
                 {realtors.map((realtor, index) => (
                     <MenuItem key={index} value={realtor.id}>
-                        {commonLabels.realtorSwitchBtn.title} {index}
+                        {commonLabels.realtorSwitchBtn.title} {index+1}
                     </MenuItem>
                 ))}
             </Select>

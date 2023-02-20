@@ -28,21 +28,9 @@ export function MessageCard(props: MessageCardProps) {
         }
     }
 
-    // const filters = message.read ? {
-    //      filter: 'grayscale(80%)'
-    // } : {}
-
-    const filters = {filter: 'grayscale(80%)' }
     // Rendu
-    if (!message.id) {
-        return (
-                <ListItem>
-                    <ListItemText>Aucun Message</ListItemText>
-                </ListItem>
-        )                   
-    }
     return (
-        <ListItem style={filters} onClick={onClickSetNewMessageId} disablePadding>
+        <ListItem onClick={onClickSetNewMessageId} disablePadding>
             <ListItemButton>
                 <ListItemIcon>{SelectIcon(message)}</ListItemIcon>
                 <ListItemText>

@@ -11,5 +11,8 @@ export interface iCommonLabels {
     contact:{
         email: string;
         phone: string;
+    },
+    messages:{
+        notFound: string,
     }
 }

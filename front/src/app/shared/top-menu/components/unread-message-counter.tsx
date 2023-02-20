@@ -9,21 +9,26 @@ interface UnreadMessageCounterProps {
     realtorIdSelected: string;
 }
 export function UnreadMessageCounter(props: UnreadMessageCounterProps) {
-    //state
+    // State
     const classes = unread_message_container();
     const { realtorIdSelected } = props;
     const realtor: Realtor = useSelector(
         selectors.selectRealtorByIdViewModel(realtorIdSelected)
     );
 
-    // comportement
-
-    // rendu
+    // Comportement
+    const ifMessageExisted = ()=>{
+        if(realtor.unread_messages > 0 ){
+            return classes.withMessage
+        }
+        return classes.withoutMessage
+    }
+    // Rendu
     return (
-        <div className={classes.root}>
-            <Logo/>
+        <div className={ifMessageExisted()}>
+            <Logo className={classes.unReadLogo}/>
             <span className={classes.unreadMessageNumber}>
-            {realtor.unread_messages || ""}
+            {realtor.unread_messages || 0}
                 </span>
         </div>
     );
