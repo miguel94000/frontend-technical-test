@@ -5,11 +5,12 @@ import { MessageCard } from './components/message-card';
 
 interface SideMessageListProps {
     handleSetMessageId: (newMessageId: number) => void;
+    setOpenDetailMessage: (setOpenDetailMessage: boolean)=> void
     messages: Message[];
 }
 export function SideMessageList(props: SideMessageListProps) {
     // State
-    const { handleSetMessageId, messages } = props;
+    const { handleSetMessageId, messages, setOpenDetailMessage } = props;
 
     // Comportement
 
@@ -21,6 +22,7 @@ export function SideMessageList(props: SideMessageListProps) {
                     key={key}
                     message={message}
                     handleSetMessageId={handleSetMessageId}
+                    setOpenDetailMessage={setOpenDetailMessage}
                 />
             ))}
         </List>

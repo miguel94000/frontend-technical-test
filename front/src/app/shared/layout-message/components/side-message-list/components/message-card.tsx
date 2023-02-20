@@ -10,15 +10,21 @@ import { formatDateDynamicFR } from 'src/utils/date/format-date';
 import { SelectIcon } from 'src/utils/icon/select-icon';
 import { useDispatch } from 'react-redux';
 import { updateMessageReadById } from 'src/app/message/core/use-cases/update-message-read-by-id';
+import { message_card_container } from 'src/theme';
 
 interface MessageCardProps {
     message: Message;
     handleSetMessageId: (newMessageId: number) => void;
+    setOpenDetailMessage: (setOpenDetailMessage: boolean) => void
 }
 export function MessageCard(props: MessageCardProps) {
     // State
+    const opacity = {
+        filter: 'opacity(0.5)'
+      };
+    const classes = message_card_container()
     const dispatch = useDispatch();
-    const { message, handleSetMessageId } = props;
+    const { message, handleSetMessageId, setOpenDetailMessage } = props;
 
     // Comportement
     const onClickSetNewMessageId = () => {
@@ -26,12 +32,14 @@ export function MessageCard(props: MessageCardProps) {
         if (!message.read) {
             dispatch(updateMessageReadById({ message }));
         }
+        setOpenDetailMessage(true)
     }
+
 
     // Rendu
     return (
-        <ListItem onClick={onClickSetNewMessageId} disablePadding>
-            <ListItemButton>
+        <ListItem sx={message.read ? opacity : {}} onClick={onClickSetNewMessageId} disablePadding>
+            <ListItemButton className={classes.root}>
                 <ListItemIcon>{SelectIcon(message)}</ListItemIcon>
                 <ListItemText>
                     <p>{message.contact.firstname}</p>

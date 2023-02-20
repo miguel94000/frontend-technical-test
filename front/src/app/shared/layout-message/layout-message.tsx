@@ -5,8 +5,10 @@ import {
     Drawer,
     List,
     ListItem,
+    Modal,
     SwipeableDrawer,
     Toolbar,
+    useMediaQuery,
 } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
@@ -15,23 +17,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Message } from 'src/app/entities';
 import { selectors } from 'src/app/message/adapters/ui/selectors';
 import { updateMessageListByRealtorId } from 'src/app/message/core/use-cases/update-message-list-by-realtor-id';
-import { drawerTest } from 'src/theme';
-import { SideMessageDetails } from './components/side-message-details/side-message-details';
+import { drawerMessageList, side_message_details, theme } from 'src/theme';
+import { SideMessageDetailsLg } from './components/side-message-details/side-message-details-lg';
+import { SideMessageDetailsXs } from './components/side-message-details/side-message-details-xs';
 import { SideMessageList } from './components/side-message-list/side-message-list';
 
 export function LayoutMessage() {
     // State
-    const classes = drawerTest()
+    const classes = {
+        drawerMessageList: drawerMessageList(),
+        side_message_details: side_message_details(),
+    };
     const messages: Message[] = useSelector(
         selectors.selectMessageListViewModel()
     );
     const dispatch = useDispatch();
-    const drawerWidth = 500;
+    const [openDetailMessage, setOpenDetailMessage] = useState<boolean>(false);
     const [messageId, setMessageId] = useState<number>(0);
     const [lastMaxMessageList, setLastMaxMessageList] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(2);
     const [loading, setLoading] = useState(false);
     const pageSize = 10;
+    const mobileScreen = useMediaQuery(theme.breakpoints.down('lg'));
 
     // Comportement
     const handleSetMessageId = (newMessageId: number) => {
@@ -45,8 +52,10 @@ export function LayoutMessage() {
         return numberToCheck % multipleNumber === 0;
     };
     const loadMoreMessages = (event: any) => {
-        if (event.target.scrollHeight - event.target.scrollTop ===
-            event.target.clientHeight) {
+        if (
+            event.target.scrollHeight - event.target.scrollTop ===
+            event.target.clientHeight
+        ) {
             if (
                 lastMaxMessageList !== messages.length &&
                 isMultiple(messages.length, pageSize)
@@ -58,16 +67,18 @@ export function LayoutMessage() {
                         pageSize,
                     })
                 );
-                setPageNumber((pageNumber)=>pageNumber+1)
-                setLoading(true)
+                setPageNumber((pageNumber) => pageNumber + 1);
+                setLoading(true);
             }
         }
     };
-
+    const handleClose = () => {
+        setOpenDetailMessage(false);
+    };
     useEffect(() => {
-        if(loading){
+        if (loading) {
             setLastMaxMessageList(messages.length);
-            setLoading(false)
+            setLoading(false);
         }
     }, [dispatch, lastMaxMessageList, loading, messages.length]);
 
@@ -77,21 +88,26 @@ export function LayoutMessage() {
             <Drawer
                 variant="permanent"
                 onScrollCapture={loadMoreMessages}
-                className={classes.root}
+                className={classes.drawerMessageList.root}
             >
-                <SideMessageList messages={messages} handleSetMessageId={handleSetMessageId} />
+                <SideMessageList
+                    messages={messages}
+                    handleSetMessageId={handleSetMessageId}
+                    setOpenDetailMessage={setOpenDetailMessage}
+                />
             </Drawer>
-            <Box
-                component="main"
-                sx={{
-                    flexGrow: 1,
-                    p: 3,
-                    width: { sm: `calc(100% - ${drawerWidth}px)` },
-                }}
-            >
-                <Toolbar />
-                <SideMessageDetails messageId={messageId} />
-            </Box>
+            {mobileScreen ? (
+                <Modal open={openDetailMessage} onClose={handleClose}>
+                    <Box className={classes.side_message_details.rootXs}>
+                        <SideMessageDetailsXs messageId={messageId} />
+                    </Box>
+                </Modal>
+            ) : (
+                <Box className={classes.side_message_details.rootLg}>
+                    <Toolbar />
+                    <SideMessageDetailsLg messageId={messageId} />
+                </Box>
+            )}
         </>
     );
 }

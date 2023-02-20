@@ -8,15 +8,13 @@ import { commonLabels } from 'src/ressources/language/common/common-labels';
 import { formatDateUS } from 'src/utils/date/format-date';
 import { purple } from '@mui/material/colors';
 import { SelectIcon } from 'src/utils/icon/select-icon';
-import { message_details_container } from 'src/theme';
 
 interface SideMessageDetailsProps {
     messageId: number;
 }
 
-export function SideMessageDetails(props: SideMessageDetailsProps) {
+export function SideMessageDetailsXs(props: SideMessageDetailsProps) {
     // State
-    const classes = message_details_container();
     const { messageId } = props;
     const message: Message = useSelector(
         selectors.selectMessageById(messageId)
@@ -29,9 +27,9 @@ export function SideMessageDetails(props: SideMessageDetailsProps) {
     if (!message.id) {
         return <p>{commonLabels.messages.notFound}</p>;
     }
-    
+
     return (
-        <div className={classes.root}>
+        <>
             <div>
                 {SelectIcon(message)}
                 <Stack spacing={0.5}>
@@ -61,6 +59,6 @@ export function SideMessageDetails(props: SideMessageDetailsProps) {
                 </Typography>
             </Stack>
             <Typography paragraph>{message.body}</Typography>
-        </div>
+        </>
     );
 }

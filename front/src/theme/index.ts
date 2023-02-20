@@ -12,7 +12,9 @@ export {
     unread_message_container,
     select_realtors,
     message_details_container,
-    drawerTest
+    drawerMessageList,
+    side_message_details,
+    message_card_container
 };
 
 const theme = createTheme({
@@ -20,25 +22,6 @@ const theme = createTheme({
         fontFamily: 'Roboto',
     },
     components: {
-        // MuiDrawer: {
-        //     defaultProps: {
-        //         sx: {
-        //             width: 500,
-        //             flexShrink: 0,
-        //             [`& .MuiDrawer-paper`]: {
-        //                 width: 500,
-        //                 boxSizing: 'border-box',
-        //                 '&::-webkit-scrollbar': { display: 'none' },
-        //             },
-        //             [theme.breakpoints.up('xs')]: {
-        //                 display: 'none',
-        //             },
-        //             [theme.breakpoints.up('lg')]: {
-        //                 display: 'flex',
-        //             },
-        //         },
-        //     },
-        // },
         MuiAppBar: {
             defaultProps: {
                 style: {
@@ -64,38 +47,7 @@ const theme = createTheme({
     },
 });
 
-const drawerTest = makeStyles({
-    root: {
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: {
-            boxSizing: 'border-box',
-            '&::-webkit-scrollbar': { display: 'none' },
-        },
-        [theme.breakpoints.up('xs')]: {
-            width: '100%',
-            [`& .MuiDrawer-paper`]: {
-                width: '100%',
-            },
-        },
-        [theme.breakpoints.up('lg')]: {
-            width: 500,
-            [`& .MuiDrawer-paper`]: {
-                width: 500,
-            },
-        },
-    },
-});
-const message_details_container = makeStyles({
-    root: {
-        [theme.breakpoints.up('xs')]: {
-            display: 'none',
-        },
-        [theme.breakpoints.up('lg')]: {
-            display: 'flex',
-        },
-    },
-});
-
+// Top Menu
 const unread_message_container = makeStyles({
     withMessage: {
         backgroundColor: colors.purple,
@@ -130,13 +82,79 @@ const unread_message_container = makeStyles({
         color: colors.white,
     },
 });
-
 const select_realtors = makeStyles({
     root: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
-        width: '160px',
+        width: '120px',
         height: '20px',
+        marginLeft: '10px'
     },
 });
+
+// Side Message List
+const drawerMessageList = makeStyles({
+    root: {
+        width: 500,
+        flexShrink: 0,
+        [`& .MuiDrawer-paper`]: {
+            width: 500,
+            boxSizing: 'border-box',
+            '&::-webkit-scrollbar': { display: 'none' },
+        },
+        [theme.breakpoints.up('xs')]: {
+            width: '100%',
+            [`& .MuiDrawer-paper`]: {
+                width: '100%',
+            },
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: 500,
+            [`& .MuiDrawer-paper`]: {
+                width: 500,
+            },
+        },
+    },
+});
+const message_card_container = makeStyles({
+    root:{
+        display:'flex',
+        backgroundColor:'red'
+    }
+})
+
+// Si Message Detail
+const side_message_details = makeStyles({
+    rootLg:{
+        flexGrow: 1,
+        p: 3,
+        padding: '10px',
+        [theme.breakpoints.up('xs')]: {
+            display:'none'
+        },
+        [theme.breakpoints.up('lg')]: {
+            display:'block'
+        },
+    },
+    rootXs: {
+        margin: "30px 0px",
+        position: 'absolute',
+        padding: "20px",
+        border: '2px solid',
+        borderColor: colors.black,
+        backgroundColor: colors.white
+    }
+})
+const message_details_container = makeStyles({
+    root: {
+        [theme.breakpoints.up('xs')]: {
+            display: 'none',
+        },
+        [theme.breakpoints.up('lg')]: {
+            display: 'flex',
+        },
+    },
+});
+
+
