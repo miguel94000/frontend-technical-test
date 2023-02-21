@@ -38,7 +38,7 @@ export function LayoutMessage() {
     const [pageNumber, setPageNumber] = useState<number>(2);
     const [loading, setLoading] = useState(false);
     const pageSize = 10;
-    const mobileScreen = useMediaQuery(theme.breakpoints.down('lg'));
+    const mobileScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     // Comportement
     const handleSetMessageId = (newMessageId: number) => {

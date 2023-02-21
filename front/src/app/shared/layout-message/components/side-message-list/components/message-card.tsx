@@ -15,7 +15,7 @@ import { formatDateDynamicFR } from 'src/utils/date/format-date';
 import { SelectIcon } from 'src/utils/icon/select-icon';
 import { useDispatch } from 'react-redux';
 import { updateMessageReadById } from 'src/app/message/core/use-cases/update-message-read-by-id';
-import { custom_stack, message_card_container } from 'src/theme';
+import { message_card_container } from 'src/theme';
 import { FormatPhoneMessage, IsPhoneMessage, MaxlengthText } from 'src/utils/text/text-format';
 import { width } from '@mui/system';
 import { colors } from 'src/theme/colors';
@@ -30,7 +30,7 @@ export function MessageCard(props: MessageCardProps) {
     const opacity = {
         filter: 'opacity(0.5)',
     };
-    const classes = message_card_container();
+    const classes = message_card_container;
     const dispatch = useDispatch();
     const { message, handleSetMessageId, setOpenDetailMessage } = props;
 
@@ -50,20 +50,22 @@ export function MessageCard(props: MessageCardProps) {
             onClick={onClickSetNewMessageId}
             disablePadding
         >
-            <ListItemButton className={classes.root}>
-                <Card >
-                    <Box sx={{ p: 3, display: 'flex'}}>
+            <ListItemButton sx={classes.list_item_button}>
+                <Card sx={classes.card} >
+                    <Box sx={{ p: 3 ,display: 'flex', justifyContent: 'space-between'}}>
+                    <Box sx={{ display: 'flex'}}>
                         {SelectIcon(message)}
-                        <Stack spacing={0.5} style={custom_stack}>
+                        <Stack spacing={0.5}  >
                             {FormatPhoneMessage(message)}
-                            
-                            <Typography variant="body2" color="#000000">
+
+                            <Typography>
                                 {message.subject}
                             </Typography>
-                            <Typography paragraph>
+                            <Typography >
                                 {IsPhoneMessage(message.type) ? message.subject : MaxlengthText(message.body)}
                             </Typography>
                         </Stack>
+                        </Box>
                         <Typography  color={colors.purple}>
                             {formatDateDynamicFR(message.date)}
                         </Typography>

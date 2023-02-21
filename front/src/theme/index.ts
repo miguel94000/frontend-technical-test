@@ -16,13 +16,22 @@ export {
     side_message_details,
     message_card_container,
     custom_typography,
-    custom_stack,
+    tool_bar,
 };
 
 const theme = createTheme({
     typography: {
         fontFamily: 'Roboto',
     },
+    breakpoints: {
+        values: {
+          xs: 0,
+          sm: 600,
+          md: 1100,
+          lg: 1101,
+          xl: 1536,
+        },
+      },
     components: {
         MuiAppBar: {
             defaultProps: {
@@ -33,16 +42,6 @@ const theme = createTheme({
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     padding: '0px 20px',
-                },
-            },
-        },
-        MuiToolbar: {
-            defaultProps: {
-                style: {
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    padding: '0px',
-                    marginRight: '30px',
                 },
             },
         },
@@ -61,6 +60,9 @@ const custom_typography = {
     bold: {
         fontWeight: 700,
     },
+    no_bold:{
+        fontWeight: 400,
+    },
     list: {
         bold: {
             fontWeight: 700,
@@ -69,7 +71,7 @@ const custom_typography = {
     },
     detail: {
         main:{
-            [theme.breakpoints.up('xs')]: {
+            [theme.breakpoints.up('sm')]: {
                 padding: '12px',
             },
             [theme.breakpoints.up('lg')]: {
@@ -77,7 +79,7 @@ const custom_typography = {
             },
         },
         svg_icon:{
-            [theme.breakpoints.up('xs')]: {
+            [theme.breakpoints.up('sm')]: {
                 fontSize: '20px',
             },
             [theme.breakpoints.up('lg')]: {
@@ -87,7 +89,7 @@ const custom_typography = {
         header:{
             display: 'flex',
             backgroundColor: colors.white,
-            [theme.breakpoints.up('xs')]: {
+            [theme.breakpoints.up('sm')]: {
                 gap: '10px',
             },
             [theme.breakpoints.up('lg')]: {
@@ -102,7 +104,7 @@ const custom_typography = {
         },
         bold: {
             fontWeight: 700,
-            [theme.breakpoints.up('xs')]: {
+            [theme.breakpoints.up('sm')]: {
                 fontSize: 'large',
             },
             [theme.breakpoints.up('lg')]: {
@@ -111,7 +113,7 @@ const custom_typography = {
         },
         bold2: {
             fontWeight: 700,
-            [theme.breakpoints.up('xs')]: {
+            [theme.breakpoints.up('sm')]: {
                 fontSize: 'x-large',
             },
             [theme.breakpoints.up('lg')]: {
@@ -119,7 +121,7 @@ const custom_typography = {
             },
         },
         normal: {
-            [theme.breakpoints.up('xs')]: {
+            [theme.breakpoints.up('sm')]: {
                 fontSize: 'large',
             },
             [theme.breakpoints.up('lg')]: {
@@ -128,7 +130,7 @@ const custom_typography = {
         },
         normal_color: {
             color: colors.purple,
-            [theme.breakpoints.up('xs')]: {
+            [theme.breakpoints.up('sm')]: {
                 fontSize: 'large',
             },
             [theme.breakpoints.up('lg')]: {
@@ -138,7 +140,7 @@ const custom_typography = {
         normal_color2: {
             color: colors.veryLightGray,
             letterSpacing: '0.01em',
-            [theme.breakpoints.up('xs')]: {
+            [theme.breakpoints.up('sm')]: {
                 fontSize: 'large',
             },
             [theme.breakpoints.up('lg')]: {
@@ -146,7 +148,7 @@ const custom_typography = {
             },
         },
         paragraphe:{
-            [theme.breakpoints.up('xs')]: {
+            [theme.breakpoints.up('sm')]: {
             fontSize: '1em',
             },
             [theme.breakpoints.up('lg')]: {
@@ -156,11 +158,13 @@ const custom_typography = {
         }
     },
 };
-const custom_stack = {
-    width: '360px',
-};
 
 // Top Menu
+const tool_bar = {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: '0px',
+}
 const base_unread_message_container = {
     backgroundColor: colors.purple,
     display: 'flex',
@@ -169,12 +173,7 @@ const base_unread_message_container = {
     height: '40px',
     borderRadius: '10px',
     paddingLeft: '5px',
-    [theme.breakpoints.up('xs')]: {
-        width: '50%',
-    },
-    [theme.breakpoints.up('lg')]: {
-        width: '80px',
-    },
+    width: '80px',
 };
 const unread_message_container = makeStyles({
     withMessage: {
@@ -199,47 +198,54 @@ const select_realtors = makeStyles({
     root: {
         display: 'flex',
         height: '24px',
-        [theme.breakpoints.up('xs')]: {
-            marginLeft: '10px',
-            width: '120px',
-        },
-        [theme.breakpoints.up('lg')]: {
-            marginLeft: '20px',
-            width: '110%',
-        },
+        width: '120px',
+        marginLeft: '20px',
     },
 });
 
 // Side Message List
 const drawerMessageList = makeStyles({
     root: {
-        width: 500,
         flexShrink: 0,
         [`& .MuiDrawer-paper`]: {
-            width: 500,
             boxSizing: 'border-box',
             '&::-webkit-scrollbar': { display: 'none' },
         },
-        [theme.breakpoints.up('xs')]: {
+        [theme.breakpoints.up('sm')]: {
             width: '100%',
             [`& .MuiDrawer-paper`]: {
                 width: '100%',
             },
         },
         [theme.breakpoints.up('lg')]: {
-            width: 500,
+            maxWidth: 500,
             [`& .MuiDrawer-paper`]: {
                 width: 500,
             },
         },
     },
 });
-const message_card_container = makeStyles({
-    root: {
+const message_card_container = {
+    list_item_button:{
         display: 'flex',
         padding: '0px',
     },
-});
+    card:{
+        width:'100%'
+
+    },
+    box:{
+        p: 3,
+        display: 'flex'
+    },
+    overview_typography:{
+        colors: colors.lightDarkGrey
+    },
+    time_typography:{
+        colors: colors.purple
+    }
+
+}
 
 // Side Message Detail
 const side_message_details = makeStyles({
@@ -248,7 +254,7 @@ const side_message_details = makeStyles({
         backgroundColor: colors.veryLightWhite,
         p: 3,
         padding: '10px',
-        [theme.breakpoints.up('xs')]: {
+        [theme.breakpoints.up('sm')]: {
             display: 'none',
         },
         [theme.breakpoints.up('lg')]: {
@@ -266,7 +272,7 @@ const side_message_details = makeStyles({
 });
 const message_details_container = makeStyles({
     root: {
-        [theme.breakpoints.up('xs')]: {
+        [theme.breakpoints.up('sm')]: {
             display: 'none',
         },
         [theme.breakpoints.up('lg')]: {
