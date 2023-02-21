@@ -6,7 +6,6 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { blue } from '@mui/material/colors';
 
 export {
     theme,
@@ -17,17 +16,12 @@ export {
     side_message_details,
     message_card_container,
     custom_typography,
-    custom_stack
+    custom_stack,
 };
 
 const theme = createTheme({
     typography: {
         fontFamily: 'Roboto',
-    },
-    palette: {
-        primary: {
-            main: blue[500],
-        },
     },
     components: {
         MuiAppBar: {
@@ -56,27 +50,114 @@ const theme = createTheme({
             defaultProps: {
                 style: {
                     color: colors.purple,
+                    marginRight: '15px',
                 },
             },
-        },
-        MuiTypography: {
-            variants: [
-                {
-                    props: { variant: 'body1' },
-                    style: {
-                        fontWeight: 700,
-                    },
-                },
-            ],
         },
     },
 });
 // General
 const custom_typography = {
-    fontWeight: 700,
+    bold: {
+        fontWeight: 700,
+    },
+    list: {
+        bold: {
+            fontWeight: 700,
+            fontSize: 'x-large',
+        },
+    },
+    detail: {
+        main:{
+            [theme.breakpoints.up('xs')]: {
+                padding: '12px',
+            },
+            [theme.breakpoints.up('lg')]: {
+                padding: '60px',
+            },
+        },
+        svg_icon:{
+            [theme.breakpoints.up('xs')]: {
+                fontSize: '20px',
+            },
+            [theme.breakpoints.up('lg')]: {
+                fontSize: '40px',
+            },
+        },
+        header:{
+            display: 'flex',
+            backgroundColor: colors.white,
+            [theme.breakpoints.up('xs')]: {
+                gap: '10px',
+            },
+            [theme.breakpoints.up('lg')]: {
+                gap: '50px',
+            },
+        },
+        body:{
+            backgroundColor: colors.white,
+            display:'flex',
+            flexDirection:'column',
+            gap:5
+        },
+        bold: {
+            fontWeight: 700,
+            [theme.breakpoints.up('xs')]: {
+                fontSize: 'large',
+            },
+            [theme.breakpoints.up('lg')]: {
+                fontSize: 'xx-large',
+            },
+        },
+        bold2: {
+            fontWeight: 700,
+            [theme.breakpoints.up('xs')]: {
+                fontSize: 'x-large',
+            },
+            [theme.breakpoints.up('lg')]: {
+                fontSize: 'xx-large',
+            },
+        },
+        normal: {
+            [theme.breakpoints.up('xs')]: {
+                fontSize: 'large',
+            },
+            [theme.breakpoints.up('lg')]: {
+                fontSize: 'x-large',
+            },
+        },
+        normal_color: {
+            color: colors.purple,
+            [theme.breakpoints.up('xs')]: {
+                fontSize: 'large',
+            },
+            [theme.breakpoints.up('lg')]: {
+                fontSize: 'x-large',
+            },
+        },
+        normal_color2: {
+            color: colors.veryLightGray,
+            letterSpacing: '0.01em',
+            [theme.breakpoints.up('xs')]: {
+                fontSize: 'large',
+            },
+            [theme.breakpoints.up('lg')]: {
+                fontSize: 'x-large',
+            },
+        },
+        paragraphe:{
+            [theme.breakpoints.up('xs')]: {
+            fontSize: '1em',
+            },
+            [theme.breakpoints.up('lg')]: {
+            fontSize: '1.4em',
+
+            },
+        }
+    },
 };
 const custom_stack = {
-    width: '350px',
+    width: '360px',
 };
 
 // Top Menu
@@ -156,7 +237,6 @@ const drawerMessageList = makeStyles({
 const message_card_container = makeStyles({
     root: {
         display: 'flex',
-        backgroundColor: 'red',
         padding: '0px',
     },
 });
@@ -165,6 +245,7 @@ const message_card_container = makeStyles({
 const side_message_details = makeStyles({
     rootLg: {
         flexGrow: 1,
+        backgroundColor: colors.veryLightWhite,
         p: 3,
         padding: '10px',
         [theme.breakpoints.up('xs')]: {

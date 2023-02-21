@@ -55,9 +55,12 @@ export function LayoutMessage() {
         // TODO: Il faut provoquer une remise a zéro complete de la page quand on change d'agence
         if (
             event.target.scrollHeight - event.target.scrollTop <=
-            event.target.clientHeight +10 // ajout d'une marge d'erreur car la taille du composant est dynamique
+            event.target.clientHeight + 10 // ajout d'une marge d'erreur car la taille du composant est dynamique
         ) {
-            console.log("test", event.target.scrollHeight - event.target.scrollTop);
+            console.log(
+                'test',
+                event.target.scrollHeight - event.target.scrollTop
+            );
             console.log('re', event.target.clientHeight + 11);
 
             if (
@@ -102,7 +105,12 @@ export function LayoutMessage() {
                 />
             </Drawer>
             {mobileScreen ? (
-                <Modal open={openDetailMessage} onClose={handleClose}>
+                <Modal
+                    open={openDetailMessage}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
                     <Box className={classes.side_message_details.rootXs}>
                         <SideMessageDetailsXs messageId={messageId} />
                     </Box>

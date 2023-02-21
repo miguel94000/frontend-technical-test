@@ -47,5 +47,11 @@
     }
   ],
   "frontMatter.framework.id": "other",
-  "frontMatter.content.publicFolder": ""
+  "frontMatter.content.publicFolder": "",
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "src",
+      "path": "[[workspace]]/src"
+    }
+  ]
 }
