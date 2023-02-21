@@ -3,6 +3,10 @@ import { iCommonLabels } from './iCommon-labels';
 export {commonLabels}
 
 const commonLabels : iCommonLabels = {
+    title:{
+        message: "messages",
+        realtor: "agences"
+    },
     realtorSwitchBtn:{
         title: 'Agence',
     },
@@ -11,7 +15,9 @@ const commonLabels : iCommonLabels = {
     },
     // Errors
     errors:{
-        realtorNotFound: "Realtor avec id {0} introuvable !"
+        realtorNotFound: "Agence avec id {0} introuvable !",
+        apiClientError: "Récupération {0} échoué !",
+        apiServerError: "Erreur serveur !",
     },
     contact:{
         email: "email",

@@ -1,4 +1,8 @@
 export interface iCommonLabels {
+    title:{
+        message: string;
+        realtor: string;
+    },
     realtorSwitchBtn:{
         title: string;
     },
@@ -7,6 +11,8 @@ export interface iCommonLabels {
     },
     errors:{
         realtorNotFound: string;
+        apiClientError: string;
+        apiServerError: string;
     },
     contact:{
         email: string;

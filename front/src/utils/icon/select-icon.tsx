@@ -1,9 +1,6 @@
 import React from 'react'
 import { Message, MessageType } from "src/app/entities";
-import MarkunreadIcon from '@mui/icons-material/Markunread';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import SmsIcon from '@mui/icons-material/Sms';
+import {MarkunreadIcon, LocalPhoneIcon, DraftsIcon, SmsIcon } from 'src/ressources/assets/icons'
 
 export function SelectIcon(message: Message) {
     if(message.read){

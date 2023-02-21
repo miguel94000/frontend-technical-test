@@ -14,15 +14,11 @@ export function UnreadMessageCounter(props: UnreadMessageCounterProps) {
     const { realtorIdSelected } = props;
     const realtor: Realtor = useSelector(
         selectors.selectRealtorByIdViewModel(realtorIdSelected)
-        // TODO: La liste du nombre de message non lu ne se met pas à jour
         ); 
 
     // Comportement
     const ifMessageExisted = ()=>{
-        if(realtor.unread_messages > 0 ){
-            return classes.withMessage
-        }
-        return classes.withoutMessage
+        return realtor.unread_messages > 0 ? classes.withMessage : classes.withoutMessage
     }
     // Rendu
     return (

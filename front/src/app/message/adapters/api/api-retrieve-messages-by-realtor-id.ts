@@ -4,8 +4,7 @@ import {
     createMessageListResult,
     iMessageListQuery,
 } from 'src/app/message/core/ports/retrieve-message-port';
-import { GetError } from 'src/utils/error-helper/error-helper';
-import { Message } from 'src/app/entities';
+import { Error } from 'src/app/entities';
 
 export const apiRetrieveMessageByRealtorId =
     ({ requestHttp }: { requestHttp: RequestHttp }): iMessageListQuery =>
@@ -26,8 +25,9 @@ export const apiRetrieveMessageByRealtorId =
                     });
                     resolve(createMessageListResult({ messages: messagesList }));
                 })
-                .catch((error) => {
-                    reject(GetError(error));
+                .catch((error: Error) => {
+                    console.error(error);
+                    reject(error);
                 });
         });
     };

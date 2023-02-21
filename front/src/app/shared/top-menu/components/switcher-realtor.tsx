@@ -6,12 +6,14 @@ import {
     SelectChangeEvent,
 } from '@mui/material';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Realtor } from 'src/app/entities';
+import { useSelector } from 'react-redux';
+import { Realtor, Error } from 'src/app/entities';
 import { retrieveMessagesByRealtorId } from 'src/app/message/core/use-cases/retrieve-messages';
 import { selectors } from 'src/app/realtor/adapters/ui/selectors';
+import { useAppDispatch } from 'src/redux/store';
 import { commonLabels } from 'src/ressources/language/common/common-labels';
 import { unread_message_container, select_realtors} from 'src/theme';
+import { Notificator } from 'src/utils/notification/notificator';
 
 interface SwitcherRealtorProps {
     handleChangeSetRealtorIdSelected: (realtorId: string) => void;
@@ -23,7 +25,7 @@ export function SwitcherRealtor(props: SwitcherRealtorProps) {
         unread_message_container: unread_message_container(),
         select_realtors: select_realtors()
     }
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { handleChangeSetRealtorIdSelected, realtorIdSelected } = props;
     const realtors: Realtor[] = useSelector(
         selectors.selectRealtorListViewModel()
@@ -40,7 +42,16 @@ export function SwitcherRealtor(props: SwitcherRealtorProps) {
                 pageNumber: 1,
                 pageSize: 10,
             })
-        );
+        )
+        .catch((error: Error) =>{
+            if(Number(error.status) >= 400 && Number(error.status) <= 499){
+                Notificator.Error((commonLabels.errors.apiClientError).replace('{0}', commonLabels.title.realtor))
+
+            } else {
+                Notificator.Error(commonLabels.errors.apiServerError)
+
+            }
+        })
     };
     // Rendu
     return (

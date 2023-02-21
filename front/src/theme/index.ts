@@ -71,7 +71,7 @@ const custom_typography = {
     },
     detail: {
         main:{
-            [theme.breakpoints.up('sm')]: {
+            [theme.breakpoints.up('md')]: {
                 padding: '12px',
             },
             [theme.breakpoints.up('lg')]: {
@@ -79,7 +79,7 @@ const custom_typography = {
             },
         },
         svg_icon:{
-            [theme.breakpoints.up('sm')]: {
+            [theme.breakpoints.up('md')]: {
                 fontSize: '20px',
             },
             [theme.breakpoints.up('lg')]: {
@@ -89,7 +89,7 @@ const custom_typography = {
         header:{
             display: 'flex',
             backgroundColor: colors.white,
-            [theme.breakpoints.up('sm')]: {
+            [theme.breakpoints.up('md')]: {
                 gap: '10px',
             },
             [theme.breakpoints.up('lg')]: {
@@ -104,7 +104,7 @@ const custom_typography = {
         },
         bold: {
             fontWeight: 700,
-            [theme.breakpoints.up('sm')]: {
+            [theme.breakpoints.up('md')]: {
                 fontSize: 'large',
             },
             [theme.breakpoints.up('lg')]: {
@@ -113,7 +113,7 @@ const custom_typography = {
         },
         bold2: {
             fontWeight: 700,
-            [theme.breakpoints.up('sm')]: {
+            [theme.breakpoints.up('md')]: {
                 fontSize: 'x-large',
             },
             [theme.breakpoints.up('lg')]: {
@@ -121,7 +121,7 @@ const custom_typography = {
             },
         },
         normal: {
-            [theme.breakpoints.up('sm')]: {
+            [theme.breakpoints.up('md')]: {
                 fontSize: 'large',
             },
             [theme.breakpoints.up('lg')]: {
@@ -130,7 +130,7 @@ const custom_typography = {
         },
         normal_color: {
             color: colors.purple,
-            [theme.breakpoints.up('sm')]: {
+            [theme.breakpoints.up('md')]: {
                 fontSize: 'large',
             },
             [theme.breakpoints.up('lg')]: {
@@ -140,7 +140,7 @@ const custom_typography = {
         normal_color2: {
             color: colors.veryLightGray,
             letterSpacing: '0.01em',
-            [theme.breakpoints.up('sm')]: {
+            [theme.breakpoints.up('md')]: {
                 fontSize: 'large',
             },
             [theme.breakpoints.up('lg')]: {
@@ -148,7 +148,7 @@ const custom_typography = {
             },
         },
         paragraphe:{
-            [theme.breakpoints.up('sm')]: {
+            [theme.breakpoints.up('md')]: {
             fontSize: '1em',
             },
             [theme.breakpoints.up('lg')]: {
@@ -229,10 +229,19 @@ const message_card_container = {
     list_item_button:{
         display: 'flex',
         padding: '0px',
+        height: '180px'
     },
     card:{
         width:'100%'
 
+    },
+    icon_informations_time_container:{
+        p: 3,
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+    icon_informations_container:{
+        display: 'flex'
     },
     box:{
         p: 3,
@@ -254,7 +263,7 @@ const side_message_details = makeStyles({
         backgroundColor: colors.veryLightWhite,
         p: 3,
         padding: '10px',
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
             display: 'none',
         },
         [theme.breakpoints.up('lg')]: {
@@ -272,7 +281,7 @@ const side_message_details = makeStyles({
 });
 const message_details_container = makeStyles({
     root: {
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
             display: 'none',
         },
         [theme.breakpoints.up('lg')]: {

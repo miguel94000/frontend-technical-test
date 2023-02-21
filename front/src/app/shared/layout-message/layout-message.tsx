@@ -13,14 +13,18 @@ import {
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Message } from 'src/app/entities';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from 'src/redux/store';
+
+import { Message, Error } from 'src/app/entities';
 import { selectors } from 'src/app/message/adapters/ui/selectors';
 import { updateMessageListByRealtorId } from 'src/app/message/core/use-cases/update-message-list-by-realtor-id';
 import { drawerMessageList, side_message_details, theme } from 'src/theme';
 import { SideMessageDetailsLg } from './components/side-message-details/side-message-details-lg';
 import { SideMessageDetailsXs } from './components/side-message-details/side-message-details-xs';
 import { SideMessageList } from './components/side-message-list/side-message-list';
+import { Notificator } from 'src/utils/notification/notificator';
+import { commonLabels } from 'src/ressources/language/common/common-labels';
 
 export function LayoutMessage() {
     // State
@@ -31,14 +35,15 @@ export function LayoutMessage() {
     const messages: Message[] = useSelector(
         selectors.selectMessageListViewModel()
     );
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [openDetailMessage, setOpenDetailMessage] = useState<boolean>(false);
     const [messageId, setMessageId] = useState<number>(0);
     const [lastMaxMessageList, setLastMaxMessageList] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(2);
     const [loading, setLoading] = useState(false);
     const pageSize = 10;
-    const mobileScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const isMobileScreen = useMediaQuery(theme.breakpoints.down('md')) 
+    const isNotDestopScreen = useMediaQuery(theme.breakpoints.up('lg'))
 
     // Comportement
     const handleSetMessageId = (newMessageId: number) => {
@@ -73,9 +78,20 @@ export function LayoutMessage() {
                         pageNumber,
                         pageSize,
                     })
-                );
-                setPageNumber((pageNumber) => pageNumber + 1);
-                setLoading(true);
+                ).then(()=>{
+                    setPageNumber((pageNumber) => pageNumber + 1);
+                    setLoading(true);
+                })
+                .catch((error: Error) =>{
+                    if(Number(error.status) >= 400 && Number(error.status) <= 499){
+                        Notificator.Error((commonLabels.errors.apiClientError).replace('{0}', commonLabels.title.realtor))
+    
+                    } else {
+                        Notificator.Error(commonLabels.errors.apiServerError)
+    
+                    }
+                })
+                
             }
         }
     };
@@ -89,6 +105,8 @@ export function LayoutMessage() {
         }
     }, [dispatch, lastMaxMessageList, loading, messages.length]);
 
+    console.log("isMobileScreen", isMobileScreen);
+    
     // Render
     return (
         <>
@@ -104,7 +122,7 @@ export function LayoutMessage() {
                     setOpenDetailMessage={setOpenDetailMessage}
                 />
             </Drawer>
-            {mobileScreen ? (
+            {isMobileScreen ? (
                 <Modal
                     open={openDetailMessage}
                     onClose={handleClose}

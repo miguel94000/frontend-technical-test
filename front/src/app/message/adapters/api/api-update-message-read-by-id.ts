@@ -4,8 +4,7 @@ import {
     createMessageUpdateResult,
     iMessageUpdateByIdQuery,
 } from 'src/app/message/core/ports/update-message-read-by-id-port';
-import { GetError } from 'src/utils/error-helper/error-helper';
-import { Message } from 'src/app/entities';
+import { Message, Error } from 'src/app/entities';
 
 export const apiUpdateMessageReadById =
     ({ requestHttp }: { requestHttp: RequestHttp }): iMessageUpdateByIdQuery =>
@@ -25,8 +24,9 @@ export const apiUpdateMessageReadById =
                 .then((message) => {
                     resolve(createMessageUpdateResult({ message: message }));
                 })
-                .catch((error) => {
-                    reject(GetError(error));
+                .catch((error: Error) => {
+                    console.error(error);
+                    reject(error);
                 });
         });
     };

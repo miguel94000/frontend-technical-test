@@ -4,7 +4,7 @@ import {
     createMessageUpdateListByRealtorIdResult,
     iMessageUpdateListByRealtorIdQuery,
 } from 'src/app/message/core/ports/update-message-list-by-realtor-id-port';
-import { GetError } from 'src/utils/error-helper/error-helper';
+import { Error } from 'src/app/entities';
 
 export const apiUpdateMessageListByRealtorId =
     ({ requestHttp }: { requestHttp: RequestHttp }): iMessageUpdateListByRealtorIdQuery =>
@@ -14,8 +14,6 @@ export const apiUpdateMessageListByRealtorId =
         pageSize: number
     ): Promise<MessageUpdateListByRealtorIdResult> => {
         return new Promise((resolve, reject) => {
-        console.log('chargement api');
-
             requestHttp
                 .get(
                     `/realtors/${realtor_id}/messages?page=${pageNumber}&page_size=${pageSize}&sort=date:desc`
@@ -27,8 +25,9 @@ export const apiUpdateMessageListByRealtorId =
                     });
                     resolve(createMessageUpdateListByRealtorIdResult({ messages: messagesList }));
                 })
-                .catch((error) => {
-                    reject(GetError(error));
+                .catch((error: Error) => {
+                    console.error(error);
+                    reject(error);
                 });
         });
     };

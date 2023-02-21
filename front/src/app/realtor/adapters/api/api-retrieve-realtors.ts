@@ -4,7 +4,7 @@ import {
     createRealtorListResult,
     iRealtorListQuery,
 } from 'src/app/realtor/core/ports/retrieve-realtor-port';
-import { GetError } from 'src/utils/error-helper/error-helper';
+import { Error } from 'src/app/entities';
 
 export const apiRetrieveRealtor =
     ({ requestHttp }: { requestHttp: RequestHttp }): iRealtorListQuery =>
@@ -16,8 +16,9 @@ export const apiRetrieveRealtor =
                 .then((realtors) => {
                     resolve(createRealtorListResult({ realtors: realtors }));
                 })
-                .catch((error) => {
-                    reject(GetError(error));
+                .catch((error: Error) => {
+                    console.error(error);
+                    reject(error);
                 });
         });
     };
