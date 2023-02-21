@@ -52,10 +52,14 @@ export function LayoutMessage() {
         return numberToCheck % multipleNumber === 0;
     };
     const loadMoreMessages = (event: any) => {
+        // TODO: Il faut provoquer une remise a zéro complete de la page quand on change d'agence
         if (
-            event.target.scrollHeight - event.target.scrollTop ===
-            event.target.clientHeight
+            event.target.scrollHeight - event.target.scrollTop <=
+            event.target.clientHeight +10 // ajout d'une marge d'erreur car la taille du composant est dynamique
         ) {
+            console.log("test", event.target.scrollHeight - event.target.scrollTop);
+            console.log('re', event.target.clientHeight + 11);
+
             if (
                 lastMaxMessageList !== messages.length &&
                 isMultiple(messages.length, pageSize)
@@ -90,6 +94,7 @@ export function LayoutMessage() {
                 onScrollCapture={loadMoreMessages}
                 className={classes.drawerMessageList.root}
             >
+                <Toolbar />
                 <SideMessageList
                     messages={messages}
                     handleSetMessageId={handleSetMessageId}

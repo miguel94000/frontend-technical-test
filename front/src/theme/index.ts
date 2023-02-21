@@ -6,6 +6,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { blue } from '@mui/material/colors';
 
 export {
     theme,
@@ -14,12 +15,19 @@ export {
     message_details_container,
     drawerMessageList,
     side_message_details,
-    message_card_container
+    message_card_container,
+    custom_typography,
+    custom_stack
 };
 
 const theme = createTheme({
     typography: {
         fontFamily: 'Roboto',
+    },
+    palette: {
+        primary: {
+            main: blue[500],
+        },
     },
     components: {
         MuiAppBar: {
@@ -30,7 +38,7 @@ const theme = createTheme({
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    padding: '0px 15px',
+                    padding: '0px 20px',
                 },
             },
         },
@@ -38,58 +46,86 @@ const theme = createTheme({
             defaultProps: {
                 style: {
                     display: 'flex',
-                    justifyContent: 'space-between',
-                    width: '280px',
+                    justifyContent: 'flex-end',
                     padding: '0px',
+                    marginRight: '30px',
                 },
             },
         },
+        MuiSvgIcon: {
+            defaultProps: {
+                style: {
+                    color: colors.purple,
+                },
+            },
+        },
+        MuiTypography: {
+            variants: [
+                {
+                    props: { variant: 'body1' },
+                    style: {
+                        fontWeight: 700,
+                    },
+                },
+            ],
+        },
     },
 });
+// General
+const custom_typography = {
+    fontWeight: 700,
+};
+const custom_stack = {
+    width: '350px',
+};
 
 // Top Menu
+const base_unread_message_container = {
+    backgroundColor: colors.purple,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    height: '40px',
+    borderRadius: '10px',
+    paddingLeft: '5px',
+    [theme.breakpoints.up('xs')]: {
+        width: '50%',
+    },
+    [theme.breakpoints.up('lg')]: {
+        width: '80px',
+    },
+};
 const unread_message_container = makeStyles({
     withMessage: {
+        ...base_unread_message_container,
         backgroundColor: colors.purple,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        width: '100px',
-        height: '40px',
-        borderRadius: '10px',
     },
     withoutMessage: {
+        ...base_unread_message_container,
         backgroundColor: colors.darkGrey,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        width: '100px',
-        height: '40px',
-        borderRadius: '10px',
     },
     unreadMessageNumber: {
         fontWeight: 'bold',
-
         color: colors.white,
         fontSize: '1.3em',
     },
-    unreadMessageForm: {
-        m: 1,
-        minWidth: 120,
-    },
     unReadLogo: {
-        transform: 'scale(1.5)',
+        transform: 'scale(1.3)',
         color: colors.white,
     },
 });
 const select_realtors = makeStyles({
     root: {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        width: '120px',
-        height: '20px',
-        marginLeft: '10px'
+        height: '24px',
+        [theme.breakpoints.up('xs')]: {
+            marginLeft: '10px',
+            width: '120px',
+        },
+        [theme.breakpoints.up('lg')]: {
+            marginLeft: '20px',
+            width: '110%',
+        },
     },
 });
 
@@ -118,34 +154,35 @@ const drawerMessageList = makeStyles({
     },
 });
 const message_card_container = makeStyles({
-    root:{
-        display:'flex',
-        backgroundColor:'red'
-    }
-})
+    root: {
+        display: 'flex',
+        backgroundColor: 'red',
+        padding: '0px',
+    },
+});
 
-// Si Message Detail
+// Side Message Detail
 const side_message_details = makeStyles({
-    rootLg:{
+    rootLg: {
         flexGrow: 1,
         p: 3,
         padding: '10px',
         [theme.breakpoints.up('xs')]: {
-            display:'none'
+            display: 'none',
         },
         [theme.breakpoints.up('lg')]: {
-            display:'block'
+            display: 'block',
         },
     },
     rootXs: {
-        margin: "30px 0px",
+        margin: '30px 0px',
         position: 'absolute',
-        padding: "20px",
+        padding: '20px',
         border: '2px solid',
         borderColor: colors.black,
-        backgroundColor: colors.white
-    }
-})
+        backgroundColor: colors.white,
+    },
+});
 const message_details_container = makeStyles({
     root: {
         [theme.breakpoints.up('xs')]: {
@@ -156,5 +193,3 @@ const message_details_container = makeStyles({
         },
     },
 });
-
-

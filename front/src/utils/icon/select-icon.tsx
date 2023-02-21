@@ -12,14 +12,10 @@ export function SelectIcon(message: Message) {
         switch (message.type) {
             case MessageType.EMAIL:
                 return <MarkunreadIcon />;
-                break;
             case MessageType.PHONE:
                 return <LocalPhoneIcon />;
-                break;
             case MessageType.SMS:
                 return <SmsIcon />;
-                break;
-    
             default:
                 break;
         }
