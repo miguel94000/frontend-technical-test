@@ -1,6 +1,5 @@
-# Aviv Frontend Technical Test
+# Front End Test
 
-[![Aviv logo](images/logo-aviv.png)](https://www.aviv-group.com/)
 
 ## Presentation
 
