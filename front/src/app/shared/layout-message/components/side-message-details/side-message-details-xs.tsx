@@ -75,7 +75,7 @@ export function SideMessageDetailsXs(props: SideMessageDetailsProps) {
                         {formatDateUS(message.date)}
                     </Typography>
                 </Stack>
-                <Typography sx={{...classes.custom_typography.detail.paragraphe, overflowY: 'scroll'}}>{message.body}</Typography>
+                <Typography sx={{...classes.custom_typography.detail.paragraphe}}>{message.body}</Typography>
             </Box>
         </Box>
     );

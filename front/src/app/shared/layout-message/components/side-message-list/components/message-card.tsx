@@ -50,9 +50,6 @@ export function MessageCard(props: MessageCardProps) {
             .then(()=>{
                 return dispatch(retrieveRealtors())
             })
-            .then(() => {
-                setOpenDetailMessage(true);
-            })
             .catch((error: Error) =>{
                 if(Number(error.status) >= 400 && Number(error.status) <= 499){
                     Notificator.Error((commonLabels.errors.apiClientError).replace('{0}', commonLabels.title.message))
@@ -63,6 +60,8 @@ export function MessageCard(props: MessageCardProps) {
                 }
             })
         }
+        setOpenDetailMessage(true);
+
     };
 
     // Rendu

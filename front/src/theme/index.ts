@@ -224,6 +224,11 @@ const drawerMessageList = makeStyles({
             },
         },
     },
+    modal:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 });
 const message_card_container = {
     list_item_button:{

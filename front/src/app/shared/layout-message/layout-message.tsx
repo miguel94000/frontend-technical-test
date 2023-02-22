@@ -43,7 +43,6 @@ export function LayoutMessage() {
     const [loading, setLoading] = useState(false);
     const pageSize = 10;
     const isMobileScreen = useMediaQuery(theme.breakpoints.down('md')) 
-    const isNotDestopScreen = useMediaQuery(theme.breakpoints.up('lg'))
 
     // Comportement
     const handleSetMessageId = (newMessageId: number) => {
@@ -57,7 +56,10 @@ export function LayoutMessage() {
         return numberToCheck % multipleNumber === 0;
     };
     const loadMoreMessages = (event: any) => {
-        // TODO: Il faut provoquer une remise a zéro complete de la page quand on change d'agence
+        /**
+         *  TODO: Il faut provoquer une remise a zéro complete de la page quand on change d'agence
+         *  Il faut remettre a zéro la variable lastMaxMessageList car elle garde le même nombre que l'ancienne agence
+         * */
         if (
             event.target.scrollHeight - event.target.scrollTop <=
             event.target.clientHeight + 10 // ajout d'une marge d'erreur car la taille du composant est dynamique
@@ -105,8 +107,6 @@ export function LayoutMessage() {
         }
     }, [dispatch, lastMaxMessageList, loading, messages.length]);
 
-    console.log("isMobileScreen", isMobileScreen);
-    
     // Render
     return (
         <>
@@ -128,6 +128,7 @@ export function LayoutMessage() {
                     onClose={handleClose}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
+                    className={classes.drawerMessageList.modal}
                 >
                     <Box className={classes.side_message_details.rootXs}>
                         <SideMessageDetailsXs messageId={messageId} />
