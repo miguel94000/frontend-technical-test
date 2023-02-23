@@ -42,7 +42,7 @@ export function LayoutMessage() {
     const [pageNumber, setPageNumber] = useState<number>(2);
     const [loading, setLoading] = useState(false);
     const pageSize = 10;
-    const isMobileScreen = useMediaQuery(theme.breakpoints.down('md')) 
+    const isMobileScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     // Comportement
     const handleSetMessageId = (newMessageId: number) => {
@@ -64,11 +64,6 @@ export function LayoutMessage() {
             event.target.scrollHeight - event.target.scrollTop <=
             event.target.clientHeight + 10 // ajout d'une marge d'erreur car la taille du composant est dynamique
         ) {
-            console.log(
-                'test',
-                event.target.scrollHeight - event.target.scrollTop
-            );
-            console.log('re', event.target.clientHeight + 11);
 
             if (
                 lastMaxMessageList !== messages.length &&
@@ -80,32 +75,34 @@ export function LayoutMessage() {
                         pageNumber,
                         pageSize,
                     })
-                ).then(()=>{
-                    setPageNumber((pageNumber) => pageNumber + 1);
-                    setLoading(true);
-                })
-                .catch((error: Error) =>{
-                    if(Number(error.status) >= 400 && Number(error.status) <= 499){
-                        Notificator.Error((commonLabels.errors.apiClientError).replace('{0}', commonLabels.title.realtor))
-    
-                    } else {
-                        Notificator.Error(commonLabels.errors.apiServerError)
-    
-                    }
-                })
-                
+                )
+                    .then(() => {
+                        setPageNumber((pageNumber) => pageNumber + 1);
+                        setLastMaxMessageList(messages.length);
+                    })
+                    .catch((error: Error) => {
+                        if (
+                            Number(error.status) >= 400 &&
+                            Number(error.status) <= 499
+                        ) {
+                            Notificator.Error(
+                                commonLabels.errors.apiClientError.replace(
+                                    '{0}',
+                                    commonLabels.title.realtor
+                                )
+                            );
+                        } else {
+                            Notificator.Error(
+                                commonLabels.errors.apiServerError
+                            );
+                        }
+                    });
             }
         }
     };
     const handleClose = () => {
         setOpenDetailMessage(false);
     };
-    useEffect(() => {
-        if (loading) {
-            setLastMaxMessageList(messages.length);
-            setLoading(false);
-        }
-    }, [dispatch, lastMaxMessageList, loading, messages.length]);
 
     // Render
     return (
