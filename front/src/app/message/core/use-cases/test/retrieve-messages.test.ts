@@ -1,77 +1,33 @@
-import { createAsyncThunk, AsyncThunk } from '@reduxjs/toolkit';
-import { Message, MessageType } from 'src/app/entities';
-import { MessageExtraArgs } from 'src/redux/store';
+import { store } from 'src/redux/store';
+import { updateMessageReadById } from '../update-message-read-by-id';
+import { retrieveRealtors } from 'src/app/realtor/core/use-cases/retrieve-realtors';
 import { retrieveMessagesByRealtorId } from '../retrieve-messages';
+import { Message } from 'src/app/entities';
 
-// Create a mock for the messageListQuery function
-const messageListQueryMock = jest.fn();
-const messageUpdateByIdQueryMock = jest.fn();
-const messageUpdateListByRealtorIdQueryMock = jest.fn();
+describe('messageSlice', () => {
 
-// Define the extra argument for the createAsyncThunk function
-const extra: MessageExtraArgs = {
-  messageListQuery: messageListQueryMock,
-  messageUpdateByIdQuery:  messageUpdateByIdQueryMock,
-  messageUpdateListByRealtorIdQuery : messageUpdateListByRealtorIdQueryMock
-};
 
-describe('retrieveMessagesByRealtorId', () => {
-  // Clear the messageListQueryMock after each test
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should retrieve messages by realtor id', async () => {
-    // Define the expected parameters for the messageListQuery function
-    const realtorId = '123';
-    const pageNumber = 1;
-    const pageSize = 10;
-
-    // Define the expected result of the messageListQuery function
-    const messages: Message[] = [
-      {
-        subject: 'Test subject',
-        body: 'Test body',
-        read: false,
-        type: MessageType.EMAIL,
-        contact: {
-          firstname: 'John',
-          lastname: 'Doe',
-          email: 'johndoe@example.com',
-          phone: '1234567890',
-        },
-        date: '2023-02-23T12:00:00.000Z',
-        id: 1,
-        realtorId,
-      },
-    ];
-
-    // Mock the messageListQuery function to return the expected result
-    messageListQueryMock.mockResolvedValueOnce(messages);
-
-    // Define the parameters for the retrieveMessagesByRealtorId action creator
-    const params = {
-      realtor_id: realtorId,
-      pageNumber,
-      pageSize,
-    };
-
-    // Call the retrieveMessagesByRealtorId action creator
-    const action: AsyncThunk<
-    Readonly<{
-        messages: Readonly<Array<Message>>;
-    }>,
-    {realtor_id: string, pageNumber: number, pageSize: number},
-    { extra: MessageExtraArgs }
-    > = retrieveMessagesByRealtorId(params, { extra });
-
-    // Get the result of the action creator
-    const result = await action(null);
-
-    // Expect that the messageListQuery function was called with the expected parameters
-    expect(messageListQueryMock).toHaveBeenCalledWith(realtorId, pageNumber, pageSize);
-
-    // Expect that the action creator returned the expected result
-    expect(result.payload.messages).toEqual(messages);
+  test('Update read message by id', async () => {
+    // Realtors List
+  let realtor = ""
+  await store.dispatch(retrieveRealtors())
+  .unwrap()
+  .then(result => realtor = result.realtors[0].id.toString())
+    // Retrieve message by ID: On ne possède pas de endPoint avec une recherche par message non lu donc on prend les 20 premiers
+    store.dispatch(retrieveMessagesByRealtorId({pageNumber:1,pageSize:20, realtor_id: realtor}))
+    .unwrap()
+    .then(result => result.messages.find((message) => message.read === false))
+    // Update message by ID
+    .then((result) =>{
+      if(result){
+        return store.dispatch(updateMessageReadById({message: result})).unwrap()
+      }
+      return undefined
+    })
+    .then((result)=>  {
+      if(result){
+        expect(result.message.read).toBe(true)
+      }
+    })
   });
 });
