@@ -1,33 +1,42 @@
-import { store } from 'src/redux/store';
-import { updateMessageReadById } from '../update-message-read-by-id';
-import { retrieveRealtors } from 'src/app/realtor/core/use-cases/retrieve-realtors';
-import { retrieveMessagesByRealtorId } from '../retrieve-messages';
-import { Message } from 'src/app/entities';
+import MockAdapter from 'axios-mock-adapter';
+import { AxiosInstance } from 'axios';
 
-describe('messageSlice', () => {
+import { createRequestHttp, RequestHttp } from 'src/utils/request-http/request-http';
+import { LocalStorage, Message, MessageType } from 'src/app/entities';
+import { apiUpdateMessageReadById } from 'src/app/message/adapters/api/api-update-message-read-by-id';
+import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
+
+describe('apiUpdateMessageReadById', () => {
+  const axiosInstance: AxiosInstance = {} as AxiosInstance;
+  const requestHttp: RequestHttp = createRequestHttp({ storage: {} as LocalStorage });
+  const message: Message = {
+    id: 123456,
+    contact:{
+      firstname: 'Paul',
+      lastname: 'Lepoulpe',
+      phone: '0010101010',
+      email:'test@gmail.Com'
+    },
+    subject: 'testUpdate',
+    body: 'need to update this message',
+    date: (new Date().getTime()).toString(),
+    read: false,
+    realtorId: 'agence_xxx',
+    type: MessageType.EMAIL
+  }
+
+  it('should update message read status', async () => {
+  const mock: MockAdapter = new MockAdapter(axios);
+
+  // Set up the mock response
+    mock.onPatch(`/realtors/${message.realtorId}/messages/${message.id}`).reply(200, message);
+
+    const updateMessageReadByIdQuery = apiUpdateMessageReadById({ requestHttp });
+    const result = await updateMessageReadByIdQuery(message);
 
 
-  test('Update read message by id', async () => {
-    // Realtors List
-  let realtor = ""
-  await store.dispatch(retrieveRealtors())
-  .unwrap()
-  .then(result => realtor = result.realtors[0].id.toString())
-    // Retrieve message by ID: On ne possède pas de endPoint avec une recherche par message non lu donc on prend les 20 premiers
-    store.dispatch(retrieveMessagesByRealtorId({pageNumber:1,pageSize:20, realtor_id: realtor}))
-    .unwrap()
-    .then(result => result.messages.find((message) => message.read === false))
-    // Update message by ID
-    .then((result) =>{
-      if(result){
-        return store.dispatch(updateMessageReadById({message: result})).unwrap()
-      }
-      return undefined
-    })
-    .then((result)=>  {
-      if(result){
-        expect(result.message.read).toBe(true)
-      }
-    })
+    expect(result.message.read).toEqual(true);
+
   });
 });
