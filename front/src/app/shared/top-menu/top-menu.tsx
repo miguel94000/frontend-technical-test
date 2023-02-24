@@ -1,4 +1,4 @@
-import { SvgIcon, Toolbar } from '@mui/material';
+import { Toolbar } from '@mui/material';
 import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import { UnreadMessageCounter } from './components/unread-message-counter';

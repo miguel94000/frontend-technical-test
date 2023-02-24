@@ -1,6 +1,5 @@
-import { createTheme, ThemeOptions } from '@mui/material/styles';
-import { TypographyOptions } from '@mui/material/styles/createTypography';
-import { DefaultTheme, makeStyles } from '@mui/styles';
+import { createTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { colors } from './colors';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';

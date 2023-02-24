@@ -3,10 +3,7 @@ import {
     Card,
     ListItem,
     ListItemButton,
-    ListItemIcon,
-    ListItemText,
     Stack,
-    Switch,
     Typography,
 } from '@mui/material';
 import React from 'react';
@@ -21,9 +18,7 @@ import {
     IsPhoneMessage,
     MaxlengthText,
 } from 'src/utils/text/text-format';
-import { width } from '@mui/system';
 import { colors } from 'src/theme/colors';
-import { retrieveMessagesByRealtorId } from 'src/app/message/core/use-cases/retrieve-messages';
 import { retrieveRealtors } from 'src/app/realtor/core/use-cases/retrieve-realtors';
 import { Notificator  } from 'src/utils/notification/notificator';
 import { commonLabels } from 'src/ressources/language/common/common-labels';

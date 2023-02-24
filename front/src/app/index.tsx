@@ -1,11 +1,11 @@
 import { Box } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { LayoutMessage } from './shared/layout-message/layout-message';
 import { TopMenu } from './shared/top-menu/top-menu'
 
 export function Index() {
     // State
-    const [minWidth, setMinWidth] = useState(350);
+    const minWidth = 350;
 
     // Comportement
     useEffect(() => {

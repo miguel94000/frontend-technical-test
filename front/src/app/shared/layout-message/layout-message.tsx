@@ -1,21 +1,13 @@
-import { ClassNames } from '@emotion/react';
 import {
     Box,
-    Divider,
     Drawer,
-    List,
-    ListItem,
     Modal,
-    SwipeableDrawer,
     Toolbar,
     useMediaQuery,
 } from '@mui/material';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'src/redux/store';
-
 import { Message, Error } from 'src/app/entities';
 import { selectors } from 'src/app/message/adapters/ui/selectors';
 import { updateMessageListByRealtorId } from 'src/app/message/core/use-cases/update-message-list-by-realtor-id';
@@ -38,9 +30,9 @@ export function LayoutMessage() {
     const dispatch = useAppDispatch();
     const [openDetailMessage, setOpenDetailMessage] = useState<boolean>(false);
     const [messageId, setMessageId] = useState<number>(0);
-    const [lastMaxMessageList, setLastMaxMessageList] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(2);
-    const [loading, setLoading] = useState(false);
+    const [loadMessage, setLoadMessage] = useState<boolean>(false);
+    const [lastRealtorId, setLastRealtorId] = useState<string>('');
     const pageSize = 10;
     const isMobileScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -49,54 +41,17 @@ export function LayoutMessage() {
         setMessageId(newMessageId);
     };
 
-    const isMultiple = (
-        numberToCheck: number,
-        multipleNumber: number
-    ): boolean => {
-        return numberToCheck % multipleNumber === 0;
-    };
     const loadMoreMessages = (event: any) => {
-        /**
-         *  TODO: Il faut provoquer une remise a zéro complete de la page quand on change d'agence
-         *  Il faut remettre a zéro la variable lastMaxMessageList car elle garde le même nombre que l'ancienne agence
-         * */
         if (
             event.target.scrollHeight - event.target.scrollTop <=
             event.target.clientHeight + 10 // ajout d'une marge d'erreur car la taille du composant est dynamique
         ) {
-
-            if (
-                lastMaxMessageList !== messages.length &&
-                isMultiple(messages.length, pageSize)
-            ) {
-                dispatch(
-                    updateMessageListByRealtorId({
-                        realtor_id: messages[0].realtorId,
-                        pageNumber,
-                        pageSize,
-                    })
-                )
-                    .then(() => {
-                        setPageNumber((pageNumber) => pageNumber + 1);
-                        setLastMaxMessageList(messages.length);
-                    })
-                    .catch((error: Error) => {
-                        if (
-                            Number(error.status) >= 400 &&
-                            Number(error.status) <= 499
-                        ) {
-                            Notificator.Error(
-                                commonLabels.errors.apiClientError.replace(
-                                    '{0}',
-                                    commonLabels.title.realtor
-                                )
-                            );
-                        } else {
-                            Notificator.Error(
-                                commonLabels.errors.apiServerError
-                            );
-                        }
-                    });
+            setLoadMessage(true)
+            if(messages && messages.length > 0 && messages[0].realtorId != lastRealtorId ){
+                console.log("changé");
+                setPageNumber(2)
+                setLastRealtorId(messages[0].realtorId)
+                window.scrollTo(0,0);
             }
         }
     };
@@ -104,6 +59,39 @@ export function LayoutMessage() {
         setOpenDetailMessage(false);
     };
 
+    // RAZ list si changement de realtor
+    useEffect(() => {
+        if (loadMessage) {
+            dispatch(
+                updateMessageListByRealtorId({
+                    realtor_id: messages[0].realtorId,
+                    pageNumber,
+                    pageSize,
+                })
+            )
+                .then(() => {
+                    setPageNumber((pageNumber) => pageNumber+1);
+                    setLoadMessage(false)
+                })
+                .catch((error: Error) => {
+                    if (
+                        Number(error.status) >= 400 &&
+                        Number(error.status) <= 499
+                    ) {
+                        Notificator.Error(
+                            commonLabels.errors.apiClientError.replace(
+                                '{0}',
+                                commonLabels.title.realtor
+                            )
+                        );
+                    } else {
+                        Notificator.Error(
+                            commonLabels.errors.apiServerError
+                        );
+                    }
+                });
+        }
+    }, [loadMessage]);
     // Render
     return (
         <>

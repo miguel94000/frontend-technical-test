@@ -1,6 +1,5 @@
 import {
     FormControl,
-    InputLabel,
     MenuItem,
     Select,
     SelectChangeEvent,
@@ -35,7 +34,6 @@ export function SwitcherRealtor(props: SwitcherRealtorProps) {
     const handleChange = (event: SelectChangeEvent) => {
         const idSelected = event.target.value as string;
         handleChangeSetRealtorIdSelected(idSelected);
-        // TODO: Au chargement il faut remettre à zéro la liste de messages donc RAZ le scroll
         dispatch(
             retrieveMessagesByRealtorId({
                 realtor_id: idSelected,

@@ -1,14 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Message, MessageType } from 'src/app/entities';
+import { Message } from 'src/app/entities';
 import { selectors } from 'src/app/message/adapters/ui/selectors';
-
 import { Box, Stack, SvgIcon, Toolbar, Typography } from '@mui/material';
 import { commonLabels } from 'src/ressources/language/common/common-labels';
 import { formatDateUS } from 'src/utils/date/format-date';
-import { purple } from '@mui/material/colors';
 import { SelectIcon } from 'src/utils/icon/select-icon';
-import { custom_typography, theme } from 'src/theme';
+import { custom_typography } from 'src/theme';
 import { FormatPhoneNumber } from 'src/utils/text/text-format';
 
 interface SideMessageDetailsProps {

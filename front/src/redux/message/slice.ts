@@ -1,4 +1,4 @@
-import { createEntityAdapter, createSlice, Update } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { Message } from '../../app/entities';
 import { retrieveMessagesByRealtorId } from 'src/app/message/core/use-cases/retrieve-messages';
 import { updateMessageReadById } from 'src/app/message/core/use-cases/update-message-read-by-id';
