@@ -6,16 +6,19 @@ export const createRequestHttp = ({ storage }: { storage: LocalStorage }) => {
         const requestHeader = new Headers(requestInit.headers);
 
         requestInit.headers = requestHeader;
-        return await fetch(storage.getBasePath() + url, requestInit);
+        const res = await fetch(storage.getBasePath() + url, requestInit);
+
+        return res;
     };
     return {
-        get(url: string, requestInit: RequestInit = {}): Promise<Response> {
-            requestInit.method = 'GET';
-            requestInit.headers = requestInit.headers ?? new Headers();
-            requestInit.mode = requestInit.mode ?? 'cors';
-            requestInit.cache = requestInit.cache ?? 'default';
-            return request(url, requestInit)
-            .then();
+        get(url: string): Promise<Response> {
+            const requestInit: RequestInit = {
+                method: 'GET',
+                headers: new Headers(),
+                mode: 'cors',
+                cache: 'default',
+            };
+            return request(url, requestInit).then();
         },
         patch(url: string, stringifiedBody: string): Promise<Response> {
             const postHeaders = new Headers();
@@ -23,15 +26,13 @@ export const createRequestHttp = ({ storage }: { storage: LocalStorage }) => {
             postHeaders.append('Accept', 'application/json');
             const requestInit: RequestInit = {
                 method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                  },
+                headers: postHeaders,
                 mode: 'cors',
                 cache: 'default',
                 body: stringifiedBody,
             };
             return request(url, requestInit).then();
+
         },
     };
 };
