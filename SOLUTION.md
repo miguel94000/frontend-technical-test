@@ -11,7 +11,6 @@ Answer: i really like react for  :
 - The performance of its virtual DOM
 - React is a very popular framework with a large community of active 
 - Its compatibility with ReduxToolkit, Tytpêscrip but also Next.js
-- 
 
 ---
 
@@ -21,7 +20,9 @@ Answer: advanced
 ---
 ### What would be the improvements on the technical part if you had to send this app to production? (A more complete version is already in production)
 
-Answer: - More extensive e2e testing
+Answer: 
+
+- More extensive e2e testing
 - Improved responsive for tablets
 - Improved css with better use of the createTheme(MUI)
 - Loading icons and scroll effects.
