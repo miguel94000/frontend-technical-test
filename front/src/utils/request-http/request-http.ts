@@ -1,8 +1,7 @@
 import { LocalStorage } from 'src/app/entities';
-import fetch, {Headers} from 'node-fetch';
 
 export const createRequestHttp = ({ storage }: { storage: LocalStorage }) => {
-    const request = async (url: string, requestInit: any) => {
+    const request = async (url: string, requestInit: RequestInit) => {
         const requestHeader = new Headers(requestInit.headers);
 
         requestInit.headers = requestHeader;
@@ -18,7 +17,7 @@ export const createRequestHttp = ({ storage }: { storage: LocalStorage }) => {
                 mode: 'cors',
                 cache: 'default',
             };
-            return request(url, requestInit).then();
+            return request(url, requestInit);
         },
         patch(url: string, stringifiedBody: string): Promise<Response> {
             const postHeaders = new Headers();
@@ -31,7 +30,7 @@ export const createRequestHttp = ({ storage }: { storage: LocalStorage }) => {
                 cache: 'default',
                 body: stringifiedBody,
             };
-            return request(url, requestInit).then();
+            return request(url, requestInit);
 
         },
     };
